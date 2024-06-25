@@ -18,6 +18,12 @@ const seven = document.querySelector(".seven");
 const eight = document.querySelector(".eight");
 const nine = document.querySelector(".nine");
 
+let firstOperand = 0;
+let secondOperand = 0;
+let operator = "";
+
+let displayValue = "";
+
 function addNumbers(a, b) {
     return a + b;
 }
@@ -46,11 +52,18 @@ function operate(a, b, o) {
     }
 }
 
-let firstOperand = 0;
-let secondOperand = 0;
-let operator = "";
-
-let displayValue = "";
+function clickNumber(o) {
+    if (firstOperand !== 0) {
+        secondOperand = parseInt(displayValue);
+        display.textContent = operate(firstOperand, secondOperand, operator);
+        firstOperand = operate(firstOperand, secondOperand, operator);
+    } else {
+        firstOperand = parseInt(displayValue);
+        operator = o;
+        display.textContent += o;
+        displayValue = "";
+    }
+}
 
 // firstOperand = 5;
 // secondOperand = 6;
@@ -108,31 +121,19 @@ nine.addEventListener("click", (e) => {
 });
 
 add.addEventListener("click", (e) => {
-    firstOperand = parseInt(displayValue);
-    operator = "+";
-    display.textContent += "+";
-    displayValue = "";
+    clickNumber("+");
 });
 
 subtract.addEventListener("click", (e) => {
-    firstOperand = parseInt(displayValue);
-    operator = "-";
-    display.textContent += "-";
-    displayValue = "";
+    clickNumber("-");
 });
 
 multiply.addEventListener("click", (e) => {
-    firstOperand = parseInt(displayValue);
-    operator = "x";
-    display.textContent += "x";
-    displayValue = "";
+    clickNumber("x");
 });
 
 divide.addEventListener("click", (e) => {
-    firstOperand = parseInt(displayValue);
-    operator = "/";
-    display.textContent += "/";
-    displayValue = "";
+    clickNumber("/");
 });
 
 equal.addEventListener("click", (e) => {
