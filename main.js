@@ -1,3 +1,23 @@
+const display = document.querySelector(".display");
+const clear = document.querySelector(".clear");
+// const numbers = document.querySelector(".numbers");
+const add = document.querySelector(".add");
+const subtract = document.querySelector(".subtract");
+const multiply = document.querySelector(".multiply");
+const divide = document.querySelector(".divide");
+const equal = document.querySelector(".equal");
+
+const zero = document.querySelector(".zero");
+const one = document.querySelector(".one");
+const two = document.querySelector(".two");
+const three = document.querySelector(".three");
+const four = document.querySelector(".four");
+const five = document.querySelector(".five");
+const six = document.querySelector(".six");
+const seven = document.querySelector(".seven");
+const eight = document.querySelector(".eight");
+const nine = document.querySelector(".nine");
+
 function addNumbers(a, b) {
     return a + b;
 }
@@ -13,11 +33,6 @@ function multiplyNumbers(a, b) {
 function divideNumbers(a, b) {
     return a / b;
 }
-
-// console.log(addNumbers(1, 2));
-// console.log(subtractNumbers(4, 2));
-// console.log(multiplyNumbers(3, 3));
-// console.log(divideNumbers(6, 2));
 
 function operate(a, b, o) {
     if (o === "+") {
@@ -35,8 +50,100 @@ let firstOperand = 0;
 let secondOperand = 0;
 let operator = "";
 
-firstOperand = 5;
-secondOperand = 6;
-operator = "x";
+let displayValue = "";
 
-console.log(operate(firstOperand, secondOperand, operator));
+// firstOperand = 5;
+// secondOperand = 6;
+// operator = "x";
+
+zero.addEventListener("click", (e) => {
+    display.textContent += "0";
+    displayValue += "0";
+    console.log(displayValue);
+});
+one.addEventListener("click", (e) => {
+    display.textContent += "1";
+    displayValue += "1";
+    console.log(displayValue);
+});
+two.addEventListener("click", (e) => {
+    display.textContent += "2";
+    displayValue += "2";
+    console.log(displayValue);
+});
+three.addEventListener("click", (e) => {
+    display.textContent += "3";
+    displayValue += "3";
+    console.log(displayValue);
+});
+four.addEventListener("click", (e) => {
+    display.textContent += "4";
+    displayValue += "4";
+    console.log(displayValue);
+});
+five.addEventListener("click", (e) => {
+    display.textContent += "5";
+    displayValue += "5";
+    console.log(displayValue);
+});
+six.addEventListener("click", (e) => {
+    display.textContent += "6";
+    displayValue += "6";
+    console.log(displayValue);
+});
+seven.addEventListener("click", (e) => {
+    display.textContent += "7";
+    displayValue += "7";
+    console.log(displayValue);
+});
+eight.addEventListener("click", (e) => {
+    display.textContent += "8";
+    displayValue += "8";
+    console.log(displayValue);
+});
+nine.addEventListener("click", (e) => {
+    display.textContent += "9";
+    displayValue += "9";
+    console.log(displayValue);
+});
+
+add.addEventListener("click", (e) => {
+    firstOperand = parseInt(displayValue);
+    operator = "+";
+    display.textContent += "+";
+    displayValue = "";
+});
+
+subtract.addEventListener("click", (e) => {
+    firstOperand = parseInt(displayValue);
+    operator = "-";
+    display.textContent += "-";
+    displayValue = "";
+});
+
+multiply.addEventListener("click", (e) => {
+    firstOperand = parseInt(displayValue);
+    operator = "x";
+    display.textContent += "x";
+    displayValue = "";
+});
+
+divide.addEventListener("click", (e) => {
+    firstOperand = parseInt(displayValue);
+    operator = "/";
+    display.textContent += "/";
+    displayValue = "";
+});
+
+equal.addEventListener("click", (e) => {
+    secondOperand = parseInt(displayValue);
+    display.textContent = operate(firstOperand, secondOperand, operator);
+});
+
+clear.addEventListener("click", (e) => {
+    display.textContent = "";
+    firstOperand = 0;
+    secondOperand = 0;
+    operator = "";
+    displayValue = "";
+});
