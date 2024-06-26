@@ -52,17 +52,17 @@ function operate(a, b, o) {
         return subtractNumbers(a, b);
     } else if (o === "x") {
         return multiplyNumbers(a, b);
-    } else if (o === "/") {
+    } else if (o === "/" && b !== 0) {
         return divideNumbers(a, b);
     }
 }
 
 function clickOperator(o) {
-    if (operator !== "" && secondOperand !== 0) {
+    if (operator !== "" && result === 0 && secondOperand !== 0) {
         secondOperand = parseInt(displayValue);
-        firstOperand = operate(firstOperand, secondOperand, operator);
-        display.textContent = firstOperand;
-        displayValue = firstOperand;
+        result = operate(firstOperand, secondOperand, operator);
+        display.textContent = `${result}${o}`;
+        displayValue = result;
         // operator = "";
     } else if (firstOperand === 0) {
         operator = o;
@@ -70,24 +70,26 @@ function clickOperator(o) {
         displayValue = "0";
     } else {
         // firstOperand = parseInt(displayValue);
+        if (operator === "") {
+            display.textContent += o;
+        } else if (operator !== o && displayValue !== "") {
+            display.textContent = "";
+            display.textContent = `${displayValue}${o}`;
+        }
         operator = o;
-        display.textContent += o;
         displayValue = "";
     }
-    console.log(`1st ${firstOperand}`);
-    console.log(`2nd ${secondOperand}`);
-    console.log(`op ${operator}`);
-    console.log(`value ${displayValue}`);
-    console.log(`result ${result}`);
+    log();
 }
 
 function clickNumber(a) {
     if (displayValue === "" && operator === "") {
         display.textContent = "";
-    }
-    if (displayValue === "0" && operator === "") {
+    } else if (displayValue === "0" && operator === "") {
         display.textContent = "";
         displayValue = "";
+    } else if (displayValue === "" && result !== 0) {
+        clearOperation();
     }
     display.textContent += a;
     displayValue += a;
@@ -96,6 +98,19 @@ function clickNumber(a) {
     } else if (operator !== "") {
         secondOperand = parseInt(displayValue);
     }
+    log();
+}
+
+function clearOperation() {
+    display.textContent = "";
+    firstOperand = 0;
+    secondOperand = 0;
+    operator = "";
+    displayValue = "";
+    result = 0;
+}
+
+function log() {
     console.log(`1st ${firstOperand}`);
     console.log(`2nd ${secondOperand}`);
     console.log(`op ${operator}`);
@@ -148,42 +163,28 @@ divide.addEventListener("click", (e) => {
 });
 
 equal.addEventListener("click", (e) => {
-    if (displayValue !== 0) {
+    if (displayValue !== "") {
         secondOperand = parseInt(displayValue);
         result = operate(firstOperand, secondOperand, operator);
         if (result === undefined) {
+            clearOperation();
             display.textContent = "cannot do that operation";
-            firstOperand = 0;
-            secondOperand = 0;
-            operator = "";
-            displayValue = "";
-            result = 0;
         } else {
             display.textContent = result;
-            firstOperand = 0;
-            secondOperand = 0;
-            operator = "";
+            // firstOperand = 0;
+            // secondOperand = 0;
+            // operator = "";
             displayValue = "";
-            result = 0;
+            // result = 0;
         }
+    } else if (displayValue === "" && firstOperand !== 0 && secondOperand !== 0) {
+        result = operate(result, secondOperand, operator);
+        display.textContent = result;
     }
-    console.log(`1st ${firstOperand}`);
-    console.log(`2nd ${secondOperand}`);
-    console.log(`op ${operator}`);
-    console.log(`value ${displayValue}`);
-    console.log(`result ${result}`);
+    log();
 });
 
 clear.addEventListener("click", (e) => {
-    display.textContent = "";
-    firstOperand = 0;
-    secondOperand = 0;
-    operator = "";
-    displayValue = "";
-    result = 0;
-    console.log(`1st ${firstOperand}`);
-    console.log(`2nd ${secondOperand}`);
-    console.log(`op ${operator}`);
-    console.log(`value ${displayValue}`);
-    console.log(`result ${result}`);
+    clearOperation();
+    log();
 });
