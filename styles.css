@@ -1,0 +1,74 @@
+.case {
+    background-color: rgb(213, 213, 213);
+    border: 2px solid rgb(37, 68, 94);
+    width: 400px;
+    height: 500px;
+    border-radius: 10px;
+}
+
+.frame {
+    background-color: black;
+    height: 180px;
+    display: flex;
+    border-radius: 10px;
+    margin: 1px;
+}
+
+.display {
+    border: 1px solid black;
+    background-color: rgb(173, 173, 148);
+    height: 70px;
+    width: 100%;
+    font-family: "digital", monospace;
+    font-size: 4rem;
+    margin: 15px;
+    margin-top: 30px;
+}
+
+.keys {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: start;
+    margin-top: 20px;
+}
+
+/* .numbers {
+    display: flex;
+    flex-wrap: wrap;
+    width: 210px;
+} */
+
+.numbers button {
+    background-color: cadetblue;
+}
+
+/* .operators {
+    display: flex;
+    flex-wrap: wrap;
+    width: 90px;
+} */
+
+.operators button {
+    background-color: rgb(47, 47, 47);
+}
+
+.clear {
+    background-color: rgb(255, 91, 58);
+}
+
+button {
+    border-radius: 6px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    width: 60px;
+    height: 50px;
+    margin: 5px;
+    font-size: 1.5rem;
+    color: white;
+}
+
+@font-face {
+    font-family: "digital";
+    src: url("/digital-7.regular.ttf");
+}
