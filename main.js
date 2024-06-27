@@ -5,6 +5,7 @@ const subtract = document.querySelector(".subtract");
 const multiply = document.querySelector(".multiply");
 const divide = document.querySelector(".divide");
 const equal = document.querySelector(".equal");
+const backspace = document.querySelector(".backspace");
 
 const zero = document.querySelector(".zero");
 const one = document.querySelector(".one");
@@ -60,7 +61,7 @@ function operate(a, b, o) {
 }
 
 function clearOperation() {
-    display.textContent = "";
+    display.textContent = "0";
     firstOperand = 0;
     secondOperand = 0;
     operator = "";
@@ -209,5 +210,34 @@ equal.addEventListener("click", (e) => {
 
 clear.addEventListener("click", (e) => {
     clearOperation();
+    log();
+});
+
+backspace.addEventListener("click", (e) => {
+    let index = displayValue.length-1;
+    console.log(index);
+    // let number = displayValue.charAt(index-1);
+    // console.log(number);
+    
+    if (displayValue !== "" && displayValue !== "0") {
+        displayValue = displayValue.slice(0, index);
+        display.textContent = displayValue;
+
+        if (secondOperand === 0) {
+            firstOperand = displayValue;
+            if (displayValue === "") {
+                display.textContent = "0";
+                firstOperand = 0;
+            }
+        } else {
+            secondOperand = displayValue;
+            if (displayValue === "") {
+                display.textContent = "0";
+                secondOperand = 0;
+            }
+        }
+        
+    }
+
     log();
 });

@@ -57,6 +57,10 @@
     background-color: rgb(255, 91, 58);
 }
 
+.backspace {
+    background-color: rgb(255, 91, 58);
+}
+
 button {
     border-radius: 6px;
     border-bottom-left-radius: 10px;
