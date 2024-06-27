@@ -63,6 +63,7 @@ function clickOperator(o) {
         result = operate(firstOperand, secondOperand, operator);
         display.textContent = `${result}${o}`;
         displayValue = result;
+        secondOperand = result;
         // operator = "";
     } else if (firstOperand === 0) {
         operator = o;
@@ -88,11 +89,24 @@ function clickNumber(a) {
     } else if (displayValue === "0" && operator === "") {
         display.textContent = "";
         displayValue = "";
+    } else if (firstOperand !== 0 && operator !== "" && secondOperand === 0) {
+        display.textContent = "";
+        displayValue = "";
     } else if (displayValue === "" && result !== 0) {
         clearOperation();
     }
+
+    // if (displayValue !== "0") {
+    //     display.textContent += a;
+    //     displayValue += a;
+    // } else if (a !== "0") {
+    //     display.textContent += a;
+    //     displayValue += a;
+    // }
+
     display.textContent += a;
     displayValue += a;
+
     if (operator === "") {
         firstOperand = parseInt(displayValue);
     } else if (operator !== "") {
@@ -168,7 +182,7 @@ equal.addEventListener("click", (e) => {
         result = operate(firstOperand, secondOperand, operator);
         if (result === undefined) {
             clearOperation();
-            display.textContent = "cannot do that operation";
+            display.textContent = "error";
         } else {
             display.textContent = result;
             // firstOperand = 0;
