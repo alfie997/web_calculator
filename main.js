@@ -78,29 +78,34 @@ function log() {
 }
 
 function clickOperator(o) {
-    if (operator !== "" && result === 0 && secondOperand !== 0) {
+    if (operator !== "" && result === 0 && secondOperand !== 0 && firstOperand !== 0) {
+        console.log("oONE");
         secondOperand = parseInt(displayValue);
         result = operate(firstOperand, secondOperand, operator);
         display.textContent = `${result}${o}`;
         displayValue = result;
         secondOperand = result;
 
-    } else if (firstOperand === 0) {
+    } else if (firstOperand === 0 && secondOperand === 0) {
+        console.log("oTWO");
         operator = o;
         display.textContent = `0${o}`;
         displayValue = "0";
 
     } else if (firstOperand !== 0 && operator !== "" && secondOperand === 0) {
+        console.log("oTHREE");
         operator = o;
         display.textContent = `${firstOperand}${o}`;
         displayValue = firstOperand;
 
     } else if (secondOperand !== 0) {
+        console.log("oFOUR");
         operator = o;
         display.textContent = `${secondOperand}${o}`;
         displayValue = secondOperand;
 
     } else {
+        console.log("oFIVE");
         if (operator === "") {
             display.textContent += o;
         } else if (operator !== o && displayValue !== "") {
@@ -111,24 +116,53 @@ function clickOperator(o) {
         operator = o;
         displayValue = "";
     }
+    // console.log("OUT");
     
+    if (result !== 0) {
+        display.textContent = `${result}${o}`;
+        firstOperand = result;
+        secondOperand = 0;
+        result = 0;
+    }
+
     log();
 }
 
 function clickNumber(a) {
     if (displayValue === "" && operator === "") {
+        console.log("nONE");
         display.textContent = "";
 
     } else if (displayValue === "0" && operator === "") {
+        console.log("nTWO");
         display.textContent = "";
         displayValue = "";
 
     } else if (firstOperand !== 0 && operator !== "" && secondOperand === 0) {
+        console.log("nTHREE");
         display.textContent = "";
         displayValue = "";
 
+    } else if (firstOperand === 0 && operator !== "" && secondOperand === 0) {
+        console.log("nFOUR");
+        display.textContent = "";
+        displayValue = "";
+
+    } else if (firstOperand === 0 && operator !== "" && secondOperand !== 0) {
+        console.log("nFIVE");
+        display.textContent = "";
+        displayValue = "";
+        firstOperand = secondOperand;
+        secondOperand = 0;
+
     } else if (displayValue === "" && result !== 0) {
-        clearOperation();
+        console.log("nSIX");
+        display.textContent = "";
+        firstOperand = 0;
+        secondOperand = 0;
+        operator = "";
+        displayValue = "";
+        result = 0;
     }
 
     display.textContent += a;
