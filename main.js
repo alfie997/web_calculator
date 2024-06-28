@@ -116,7 +116,6 @@ function clickOperator(o) {
         operator = o;
         displayValue = "";
     }
-    // console.log("OUT");
     
     if (result !== 0) {
         display.textContent = `${result}${o}`;
@@ -250,8 +249,6 @@ clear.addEventListener("click", (e) => {
 backspace.addEventListener("click", (e) => {
     let index = displayValue.length-1;
     console.log(index);
-    // let number = displayValue.charAt(index-1);
-    // console.log(number);
     
     if (displayValue !== "" && displayValue !== "0") {
         displayValue = displayValue.slice(0, index);
