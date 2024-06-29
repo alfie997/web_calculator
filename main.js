@@ -7,6 +7,7 @@ const divide = document.querySelector(".divide");
 const equal = document.querySelector(".equal");
 const backspace = document.querySelector(".backspace");
 
+const zeroZero = document.querySelector(".zero-zero");
 const zero = document.querySelector(".zero");
 const one = document.querySelector(".one");
 const two = document.querySelector(".two");
@@ -17,6 +18,7 @@ const six = document.querySelector(".six");
 const seven = document.querySelector(".seven");
 const eight = document.querySelector(".eight");
 const nine = document.querySelector(".nine");
+const dot = document.querySelector(".dot");
 
 let firstOperand = 0;
 let secondOperand = 0;
@@ -26,6 +28,8 @@ let displayValue = "0";
 
 let result = 0;
 // let postResult = "";
+
+let floating = "";
 
 display.textContent = "0";
 
@@ -89,7 +93,7 @@ function log() {
 function clickOperator(o) {
     if (operator !== "" && result === 0 && secondOperand !== 0 && firstOperand !== 0) {
         console.log("oONE");
-        secondOperand = parseInt(displayValue);
+        secondOperand = parseFloat(displayValue);
         result = operate(firstOperand, secondOperand, operator);
         // display.textContent = `${result}${o}`;
         display.textContent = trimNumber(result) + o;
@@ -153,12 +157,12 @@ function clickNumber(a) {
         console.log("nONE");
         display.textContent = "";
 
-    } else if (displayValue === "0" && operator === "") {
+    } else if (displayValue === "0" && operator === "" && a !== "00") {
         console.log("nTWO");
         display.textContent = "";
         displayValue = "";
 
-    } else if (firstOperand !== 0 && operator !== "" && secondOperand === 0) {
+    } else if (firstOperand !== 0 && operator !== "" && secondOperand === 0 && !Number.isInteger(secondOperand)) {
         console.log("nTHREE");
         display.textContent = "";
         displayValue = "";
@@ -177,32 +181,39 @@ function clickNumber(a) {
 
     } else if (displayValue === "" && result !== 0) {
         console.log("nSIX");
+        clearOperation();
         display.textContent = "";
-        firstOperand = 0;
-        secondOperand = 0;
-        operator = "";
-        displayValue = "";
-        result = 0;
+        // firstOperand = 0;
+        // secondOperand = 0;
+        // operator = "";
+        // displayValue = "";
+        // result = 0;
     }
 
-    console.log(parseInt(displayValue) < 12);
-    if (displayValue === "") {
+    // console.log(parseInt(displayValue) < 12);
+    if (displayValue === "" || displayValue.length < 12 && firstOperand !== 0) {
         displayValue += a;
         display.textContent = displayValue;
-    } else if (displayValue.length < 12) {
-        displayValue += a;
+    // } else if (displayValue.length < 12) {
+    //     displayValue += a;
+    //     display.textContent = displayValue;
+    } else if (a === "00") {
+        displayValue = "0";
         display.textContent = displayValue;
     }
 
     if (operator === "") {
-        firstOperand = parseInt(displayValue);
+        firstOperand = parseFloat(displayValue);
     } else if (operator !== "") {
-        secondOperand = parseInt(displayValue);
+        secondOperand = parseFloat(displayValue);
     }
 
     log();
 }
 
+zeroZero.addEventListener("click", (e) => {
+    clickNumber("00");
+});
 zero.addEventListener("click", (e) => {
     clickNumber("0");
 });
@@ -234,6 +245,27 @@ nine.addEventListener("click", (e) => {
     clickNumber("9");
 });
 
+dot.addEventListener("click", (e) => {
+    if (Number.isInteger(firstOperand) && operator === "") {
+        floating = firstOperand;
+        floating += ".";
+        console.log(floating);
+        firstOperand = parseFloat(floating);
+        displayValue = floating;
+        display.textContent = trimNumber(displayValue);
+        floating = "";
+    } else if (Number.isInteger(secondOperand) && operator !== "") {
+        floating = secondOperand;
+        floating += ".";
+        secondOperand = parseFloat(floating);
+        displayValue = floating;
+        display.textContent = trimNumber(displayValue);
+        floating = "";
+    }
+    
+    log();
+});
+
 add.addEventListener("click", (e) => {
     clickOperator("+");
 });
@@ -249,7 +281,7 @@ divide.addEventListener("click", (e) => {
 
 equal.addEventListener("click", (e) => {
     if (displayValue !== "" && operator !== "") {
-        secondOperand = parseInt(displayValue);
+        secondOperand = parseFloat(displayValue);
         result = operate(firstOperand, secondOperand, operator);
         // let postResult = String(result);
         // console.log(postResult);
@@ -301,16 +333,16 @@ backspace.addEventListener("click", (e) => {
     
     if (displayValue !== "" && displayValue !== "0") {
         displayValue = displayValue.slice(0, index);
-        display.textContent = displayValue;
+        display.textContent = trimNumber(displayValue);
 
         if (secondOperand === 0) {
-            firstOperand = displayValue;
+            firstOperand = parseFloat(displayValue);
             if (displayValue === "") {
                 display.textContent = "0";
                 firstOperand = 0;
             }
         } else {
-            secondOperand = displayValue;
+            secondOperand = parseFloat(displayValue);
             if (displayValue === "") {
                 display.textContent = "0";
                 secondOperand = 0;
