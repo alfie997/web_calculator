@@ -22,9 +22,10 @@ let firstOperand = 0;
 let secondOperand = 0;
 let operator = "";
 
-let displayValue = "";
+let displayValue = "0";
 
 let result = 0;
+// let postResult = "";
 
 display.textContent = "0";
 
@@ -60,6 +61,14 @@ function operate(a, b, o) {
     }
 }
 
+function trimNumber(number) {
+    let trimmed = String(number);
+    if (trimmed.length >= 12) {
+            trimmed = trimmed.slice(0, 12);
+    }
+    return trimmed;
+}
+
 function clearOperation() {
     display.textContent = "0";
     firstOperand = 0;
@@ -82,7 +91,8 @@ function clickOperator(o) {
         console.log("oONE");
         secondOperand = parseInt(displayValue);
         result = operate(firstOperand, secondOperand, operator);
-        display.textContent = `${result}${o}`;
+        // display.textContent = `${result}${o}`;
+        display.textContent = trimNumber(result) + o;
         displayValue = result;
         secondOperand = result;
 
@@ -95,13 +105,15 @@ function clickOperator(o) {
     } else if (firstOperand !== 0 && operator !== "" && secondOperand === 0) {
         console.log("oTHREE");
         operator = o;
-        display.textContent = `${firstOperand}${o}`;
+        // display.textContent = `${firstOperand}${o}`;
+        display.textContent = trimNumber(firstOperand) + o;
         displayValue = firstOperand;
 
     } else if (secondOperand !== 0) {
         console.log("oFOUR");
         operator = o;
-        display.textContent = `${secondOperand}${o}`;
+        // display.textContent = `${secondOperand}${o}`;
+        display.textContent = trimNumber(secondOperand) + o;
         displayValue = secondOperand;
 
     } else {
@@ -110,7 +122,8 @@ function clickOperator(o) {
             display.textContent += o;
         } else if (operator !== o && displayValue !== "") {
             display.textContent = "";
-            display.textContent = `${displayValue}${o}`;
+            // display.textContent = `${displayValue}${o}`;
+            display.textContent = trimNumber(displayValue) + o;
         }
 
         operator = o;
@@ -118,7 +131,15 @@ function clickOperator(o) {
     }
     
     if (result !== 0) {
-        display.textContent = `${result}${o}`;
+        // postResult = String(result);
+        // console.log(postResult);
+
+        // if (postResult.length >= 12) {
+        //     postResult = postResult.slice(0, 12);
+        // }
+
+        // display.textContent = `${result}${o}`;
+        display.textContent = trimNumber(result) + o;
         firstOperand = result;
         secondOperand = 0;
         result = 0;
@@ -164,8 +185,14 @@ function clickNumber(a) {
         result = 0;
     }
 
-    display.textContent += a;
-    displayValue += a;
+    console.log(parseInt(displayValue) < 12);
+    if (displayValue === "") {
+        displayValue += a;
+        display.textContent = displayValue;
+    } else if (displayValue.length < 12) {
+        displayValue += a;
+        display.textContent = displayValue;
+    }
 
     if (operator === "") {
         firstOperand = parseInt(displayValue);
@@ -224,18 +251,40 @@ equal.addEventListener("click", (e) => {
     if (displayValue !== "" && operator !== "") {
         secondOperand = parseInt(displayValue);
         result = operate(firstOperand, secondOperand, operator);
+        // let postResult = String(result);
+        // console.log(postResult);
 
-        if (result === undefined) {
-            clearOperation();
-            display.textContent = "error";
-        } else {
-            display.textContent = result;
-            displayValue = "";
-        }
+        // if (postResult.length >= 12) {
+        //     postResult = postResult.slice(0, 12);
+        // }
+
+        // if (result === undefined) {
+        //     clearOperation();
+        //     display.textContent = "error";
+        // } else {
+        //     display.textContent = postResult;
+        //     displayValue = "";
+        // }
+
 
     } else if (displayValue === "" && firstOperand !== 0 && secondOperand !== 0) {
         result = operate(result, secondOperand, operator);
-        display.textContent = result;
+        // display.textContent = result;
+    }
+
+    // postResult = String(result);
+    // console.log(postResult);
+
+    // if (postResult.length >= 12) {
+    //     postResult = postResult.slice(0, 12);
+    // }
+
+    if (result === undefined) {
+        clearOperation();
+        display.textContent = "error";
+    } else {
+        display.textContent = trimNumber(result);
+        displayValue = "";
     }
     
     log();
