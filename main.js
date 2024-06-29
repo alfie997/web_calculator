@@ -68,7 +68,7 @@ function operate(a, b, o) {
 function trimNumber(number) {
     let trimmed = String(number);
     if (trimmed.length >= 12) {
-            trimmed = trimmed.slice(0, 12);
+            trimmed = trimmed.slice(0, 10);
     }
     return trimmed;
 }
@@ -191,7 +191,7 @@ function clickNumber(a) {
     }
 
     // console.log(parseInt(displayValue) < 12);
-    if (displayValue === "" || displayValue.length < 12 && firstOperand !== 0) {
+    if (displayValue === "" || displayValue.length < 10 && firstOperand !== 0) {
         displayValue += a;
         display.textContent = displayValue;
     // } else if (displayValue.length < 12) {

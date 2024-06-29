@@ -1,7 +1,7 @@
 .case {
     background-color: rgb(213, 213, 213);
     border: 2px solid rgb(37, 68, 94);
-    width: 450px;
+    width: 370px;
     height: 470px;
     border-radius: 10px;
 }
@@ -39,10 +39,12 @@ button {
 .keys {
     display: flex;
     flex-wrap: wrap;
-    flex-direction: column;
-    justify-content: end;
-    align-content: center;
+    flex-direction: row;
+    justify-content: flex-end;
+    /* align-content:; */
+    align-items: flex-start;
     margin-top: 20px;
+    margin-right: 10px;
     height: 240px;
 }
 
@@ -58,12 +60,16 @@ button {
 }
 
 .operators {
+    position: absolute;
+    top: 271px;
     display: flex;
     flex-wrap: wrap-reverse;
     flex-direction: column;
-    justify-content: end;
+    /* justify-content: end; */
     width: 140px;
-    height: 200px;
+    height: 180px;
+    /* margin-bottom: 100px; */
+    /* padding-bottom: 100px; */
 }
 
 .operators button {
